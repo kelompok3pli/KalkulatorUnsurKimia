@@ -18,7 +18,7 @@ if menu == "Beranda":
 
 elif menu == "Kalkulator":
     st.header("Kalkulator Massa Relatif")
-    formula = st.text_input("Masukkan rumus kimia (misalnya: H2O, CO2, C6H12O6):")
+    formula = st.text_input("Masukkan rumus kimia (misalnya: H2O, CO2, CuCO4):")
 
     # Data massa atom relatif sederhana
     massa_atom = {
