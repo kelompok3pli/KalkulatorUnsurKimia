@@ -74,3 +74,29 @@ elif menu == "Tentang":
         Versi: 1.0  
         Lisensi: Open Source
     """)
+
+def parse_formula(f):
+    f = f.replace('·', '.')
+    parts = f.split('.')
+    total_elements = defaultdict(int)
+
+    for part in parts:
+        # Tangani koefisien di depan, seperti "5H2O"
+        match = re.match(r'^(\d+)([A-Z].*)', part)
+        if match:
+            multiplier = int(match.group(1))
+            formula_part = match.group(2)
+        else:
+            multiplier = 1
+            formula_part = part
+
+        pattern = r'([A-Z][a-z]*)(\d*)'
+        matches = re.findall(pattern, formula_part)
+        for (el, count) in matches:
+            if el not in massa_atom:
+                st.warning(f"Unsur '{el}' tidak dikenali.")
+                return None
+            count = int(count) if count else 1
+            total_elements[el] += count * multiplier
+
+    return total_elements
