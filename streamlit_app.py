@@ -84,6 +84,14 @@ elif menu == "Kalkulator":
     st.header("Kalkulator Massa Relatif")
     formula = st.text_input("Masukkan rumus kimia (misalnya: H2O, CO2, CuSO4·5H2O):")
 
+    #Animasi
+    lottie_url = "https://lottie.host/e7243934-5f33-4a69-8129-d9e7ac583349/XbPaMkXomO.json"
+    lottie_json = load_lottieurl(lottie_url)
+    if lottie_json:
+        st_lottie(lottie_json, height=250, key="Kalkulator")
+        
+   
+
     if formula:
         parsed = parse_formula(formula)
         if parsed:
