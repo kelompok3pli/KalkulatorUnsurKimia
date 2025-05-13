@@ -83,7 +83,7 @@ elif menu == "🧪 Kalkulator":
 # Halaman Tentang
 elif menu == "ℹ️ Tentang":
 
-     lottie_url = "https://lottie.host/49626c27-b23c-475e-8505-981d510c0e61/lag9aGftQv.json"
+    lottie_url = "https://lottie.host/49626c27-b23c-475e-8505-981d510c0e61/lag9aGftQv.json"
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
         st_lottie(lottie_json, height=250, key="Tentang")
