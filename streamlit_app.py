@@ -51,7 +51,7 @@ def parse_formula(f):
 if menu == "🏠 Beranda":
     st.header("Selamat Datang di Kalkulator Massa Relatif")
 
-    lottie_url = "https://lottie.host/e7243934-5f33-4a69-8129-d9e7ac583349/XbPaMkXomO.json"
+    lottie_url = "https://lottie.host/b592895d-f9e1-43b1-bf8e-dea5b80b8a25/h9K58rIqKT.json"
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
         st_lottie(lottie_json, height=250, key="beranda")
