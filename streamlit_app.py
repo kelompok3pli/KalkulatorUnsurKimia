@@ -72,7 +72,7 @@ if menu == "Beranda":
     if lottie_json:
         st_lottie(lottie_json, height=250, key="Beranda")
 
-    
+    #p
     st.write("""
         Aplikasi ini membantu Anda menghitung massa relatif dari suatu unsur atau senyawa 
         berdasarkan rumus kimia yang diberikan. 
