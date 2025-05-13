@@ -46,7 +46,6 @@ elif menu == "Kalkulator":
     import re
     from collections import defaultdict
 
-
 def parse_formula(f):
     f = f.replace('·', '.')
     parts = f.split('.')
