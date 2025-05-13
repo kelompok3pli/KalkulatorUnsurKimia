@@ -46,34 +46,6 @@ elif menu == "Kalkulator":
     import re
     from collections import defaultdict
 
-    def parse_formula(f):
-        pattern = r'([A-Z][a-z]*)(\d*)'
-        matches = re.findall(pattern, f)
-        elements = defaultdict(int)
-        for (el, count) in matches:
-            if el not in massa_atom:
-                st.warning(f"Unsur '{el}' tidak dikenali.")
-                return None
-            count = int(count) if count else 1
-            elements[el] += count
-        return elements
-
-    if formula:
-        parsed = parse_formula(formula)
-        if parsed:
-            massa_total = sum(massa_atom[el] * n for el, n in parsed.items())
-            st.success(f"Massa relatif dari {formula} adalah {massa_total:.2f} g/mol")
-
-elif menu == "Tentang":
-    st.header("Tentang Aplikasi Ini")
-    st.write("""
-        Aplikasi ini dikembangkan menggunakan Streamlit dan bertujuan untuk membantu siswa dan guru
-        dalam menghitung massa relatif zat kimia secara cepat dan interaktif.
-        
-        Dibuat oleh: [Nama Anda]  
-        Versi: 1.0  
-        Lisensi: Open Source
-    """)
 
 def parse_formula(f):
     f = f.replace('·', '.')
