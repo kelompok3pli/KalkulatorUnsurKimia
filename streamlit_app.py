@@ -1,6 +1,15 @@
+from streamlit_lottie import st_lottie
+import requests
 import streamlit as st
 import re
 from collections import defaultdict
+
+# fungsi lottie
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
 
 # Konfigurasi halaman
 st.set_page_config(page_title="Kalkulator Massa Relatif", layout="centered")
@@ -56,6 +65,14 @@ def parse_formula(f):
 # Konten halaman
 if menu == "Beranda":
     st.header("Selamat Datang di Kalkulator Massa Relatif")
+
+    # animasi
+    lottie_url = "https://lottie.host/5ee6c7e7-3c7b-473f-b75c-df412fe210cc/kF9j77AAsG.json"
+    lottie_json = load_lottieurl(lottie_url)
+    if lottie_json:
+        st_lottie(lottie_json, height=250, key="Beranda")
+
+    
     st.write("""
         Aplikasi ini membantu Anda menghitung massa relatif dari suatu unsur atau senyawa 
         berdasarkan rumus kimia yang diberikan. 
