@@ -51,7 +51,7 @@ def parse_formula(f):
 if menu == "🏠 Beranda":
     st.header("Selamat Datang di Kalkulator Massa Relatif")
 
-    lottie_url = "https://lottie.host/5ee6c7e7-3c7b-473f-b75c-df412fe210cc/kF9j77AAsG.json"
+    lottie_url = "https://lottie.host/e7243934-5f33-4a69-8129-d9e7ac583349/XbPaMkXomO.json"
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
         st_lottie(lottie_json, height=250, key="beranda")
@@ -64,13 +64,14 @@ if menu == "🏠 Beranda":
 
 # Halaman Kalkulator
 elif menu == "🧪 Kalkulator":
-    st.header("Kalkulator Massa Relatif")
-    formula = st.text_input("Masukkan rumus kimia (misalnya: H2O, CO2, CuSO4·5H2O):")
 
-    lottie_url = "https://lottie.host/e7243934-5f33-4a69-8129-d9e7ac583349/XbPaMkXomO.json"
+     lottie_url = "https://lottie.host/5ee6c7e7-3c7b-473f-b75c-df412fe210cc/kF9j77AAsG.json"
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
         st_lottie(lottie_json, height=250, key="kalkulator")
+
+    st.header("Kalkulator Massa Relatif")
+    formula = st.text_input("Masukkan rumus kimia (misalnya: H2O, CO2, CuSO4·5H2O):")
 
     if formula:
         parsed = parse_formula(formula)
