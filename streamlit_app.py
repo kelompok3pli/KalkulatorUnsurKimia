@@ -17,10 +17,7 @@ st.set_page_config(page_title="Kalkulator Massa Relatif", layout="centered")
 st.title("Kalkulator Massa Relatif")
 
 #sidebar Navigasi
-menu = st.sidebar.selectbox(
-    "🔍 Navigasi", 
-    ["🏠 Beranda", "🧪 Kalkulator", "ℹ️ Tentang"]
-)
+menu = st.sidebar.selectbox("🔍 Navigasi",["🏠 Beranda", "🧪 Kalkulator", "ℹ️ Tentang"])
 
 # Data massa atom relatif
 massa_atom = {
