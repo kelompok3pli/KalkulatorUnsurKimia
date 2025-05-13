@@ -65,7 +65,7 @@ if menu == "🏠 Beranda":
 # Halaman Kalkulator
 elif menu == "🧪 Kalkulator":
 
-     lottie_url = "https://lottie.host/5ee6c7e7-3c7b-473f-b75c-df412fe210cc/kF9j77AAsG.json"
+    lottie_url = "https://lottie.host/5ee6c7e7-3c7b-473f-b75c-df412fe210cc/kF9j77AAsG.json"
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
         st_lottie(lottie_json, height=250, key="kalkulator")
