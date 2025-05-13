@@ -105,21 +105,3 @@ elif menu == "ℹ️ Tentang":
          Mr adalah jumlah massa atom dari seluruh atom dalam suatu molekul. Digunakan untuk
          menghitung massa molar senyawa dalam satuan g/mol saat dikalikan dengan 1 mol.
     """)
-
-# CSS untuk mengubah latar belakang menjadi abu-abu
-page_bg = """
-<style>
-[data-testid="stAppViewContainer"] {
-    background-color: ##f93ef2;  /* Pink terang */
-}
-
-[data-testid="stHeader"] {
-    background-color: rgba(0,0,0,0); /* Transparan */
-}
-
-[data-testid="stSidebar"] {
-    background-color: rgba(255, 255, 255, 0.9); /* Sidebar putih semi-transparan */
-}
-</style>
-"""
-st.markdown(page_bg, unsafe_allow_html=True)
