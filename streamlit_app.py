@@ -1,28 +1,17 @@
 import streamlit as st
+import re
+from collections import defaultdict
 
-# Judul aplikasi
+# Konfigurasi halaman
 st.set_page_config(page_title="Kalkulator Massa Relatif", layout="centered")
 st.title("Kalkulator Massa Relatif")
 
 # Sidebar navigasi
 menu = st.sidebar.selectbox("Navigasi", ["Beranda", "Kalkulator", "Tentang"])
 
-# Konten untuk masing-masing halaman
-if menu == "Beranda":
-    st.header("Selamat Datang di Kalkulator Massa Relatif")
-    st.write("""
-        Aplikasi ini membantu Anda menghitung massa relatif dari suatu unsur atau senyawa 
-        berdasarkan rumus kimia yang diberikan. 
-        Gunakan menu di samping untuk mulai menggunakan kalkulator atau mempelajari lebih lanjut.
-    """)
-
-elif menu == "Kalkulator":
-    st.header("Kalkulator Massa Relatif")
-    formula = st.text_input("Masukkan rumus kimia (misalnya: H2O, CO2, CuCO4):")
-
-    # Data massa atom relatif sederhana
-    massa_atom = {
-         "H": 1.008, "He": 4.0026, "Li": 6.94, "Be": 9.0122, "B": 10.81, "C": 12.01,
+# Data massa atom relatif
+massa_atom = {
+    "H": 1.008, "He": 4.0026, "Li": 6.94, "Be": 9.0122, "B": 10.81, "C": 12.01,
     "N": 14.007, "O": 16.00, "F": 18.998, "Ne": 20.180, "Na": 22.990, "Mg": 24.305,
     "Al": 26.982, "Si": 28.085, "P": 30.974, "S": 32.06, "Cl": 35.45, "Ar": 39.948,
     "K": 39.098, "Ca": 40.078, "Sc": 44.956, "Ti": 47.867, "V": 50.942, "Cr": 51.996,
@@ -41,22 +30,41 @@ elif menu == "Kalkulator":
     "Es": 252, "Fm": 257, "Md": 258, "No": 259, "Lr": 266, "Rf": 267, "Db": 268,
     "Sg": 269, "Bh": 270, "Hs": 277, "Mt": 278, "Ds": 281, "Rg": 282, "Cn": 285,
     "Fl": 289, "Lv": 293, "Ts": 294, "Og": 294
-    }
+}
 
-    import re
-    from collections import defaultdict
-
+# Fungsi parsing formula
 def parse_formula(f):
-        pattern = r'([A-Z][a-z])(\d)'
-        matches = re.findall(pattern, f)
-        elements = defaultdict(int)
-        for (el, count) in matches:
+    f = f.replace('·', '.')
+    parts = f.split('.')
+    total_elements = defaultdict(int)
+
+    for part in parts:
+        match = re.match(r'^(\d+)([A-Z].*)', part)
+        multiplier = int(match.group(1)) if match else 1
+        formula_part = match.group(2) if match else part
+
+        pattern = r'([A-Z][a-z]*)(\d*)'
+        matches = re.findall(pattern, formula_part)
+        for el, count in matches:
             if el not in massa_atom:
                 st.warning(f"Unsur '{el}' tidak dikenali.")
                 return None
-            count = int(count) if count else 1
-            elements[el] += count
-        return elements
+            total_elements[el] += int(count) if count else 1 * multiplier
+
+    return total_elements
+
+# Konten halaman
+if menu == "Beranda":
+    st.header("Selamat Datang di Kalkulator Massa Relatif")
+    st.write("""
+        Aplikasi ini membantu Anda menghitung massa relatif dari suatu unsur atau senyawa 
+        berdasarkan rumus kimia yang diberikan. 
+        Gunakan menu di samping untuk mulai menggunakan kalkulator atau mempelajari lebih lanjut.
+    """)
+
+elif menu == "Kalkulator":
+    st.header("Kalkulator Massa Relatif")
+    formula = st.text_input("Masukkan rumus kimia (misalnya: H2O, CO2, CuSO4·5H2O):")
 
     if formula:
         parsed = parse_formula(formula)
@@ -69,52 +77,8 @@ elif menu == "Tentang":
     st.write("""
         Aplikasi ini dikembangkan menggunakan Streamlit dan bertujuan untuk membantu siswa dan guru
         dalam menghitung massa relatif zat kimia secara cepat dan interaktif.
-        
+
         Dibuat oleh: [Nama Anda]  
         Versi: 1.0  
-        Lisensi: Open Source
-    """)
-
-def parse_formula(f):
-    f = f.replace('·', '.')
-    parts = f.split('.')
-    total_elements = defaultdict(int)
-
-    for part in parts:
-        # Tangani koefisien di depan, seperti "5H2O"
-        match = re.match(r'^(\d+)([A-Z].*)', part)
-        if match:
-            multiplier = int(match.group(1))
-            formula_part = match.group(2)
-        else:
-            multiplier = 1
-            formula_part = part
-
-        pattern = r'([A-Z][a-z]*)(\d*)'
-        matches = re.findall(pattern, formula_part)
-        for (el, count) in matches:
-            if el not in massa_atom:
-                st.warning(f"Unsur '{el}' tidak dikenali.")
-                return None
-            count = int(count) if count else 1
-            total_elements[el] += count * multiplier
-
-    return total_elements
-
-if formula:
-        parsed = parse_formula(formula)
-        if parsed:
-            massa_total = sum(massa_atom[el] * n for el, n in parsed.items())
-            st.success(f"Massa relatif dari {formula} adalah {massa_total:.2f} g/mol")
-
-elif menu == "Tentang":
-    st.header("Tentang Aplikasi Ini")
-    st.write("""
-        Aplikasi ini dikembangkan menggunakan Streamlit dan bertujuan untuk membantu siswa dan guru
-        dalam menghitung massa relatif zat kimia secara cepat dan interaktif.
-        
-        Dibuat oleh: [Nama Anda]  
-        Versi: 1.0  
-        Lisensi: Open Source
-    """)
-
+        Lisensi: Open Source
+    """)
