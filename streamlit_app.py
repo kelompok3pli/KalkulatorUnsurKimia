@@ -93,8 +93,15 @@ elif menu == "ℹ️ Tentang":
     st.write("""
         Aplikasi ini dikembangkan menggunakan Streamlit dan bertujuan untuk membantu siswa dan guru
         dalam menghitung massa relatif zat kimia secara cepat dan interaktif.
+    """)
 
-        Dibuat oleh: [Nama Anda]  
-        Versi: 1.0  
-        Lisensi: Open Source
+    lottie_url = "https://lottie.host/4a584f69-29b5-40a0-a133-a15f4775ec6d/O3pamPxHLp.json"
+    lottie_json = load_lottieurl(lottie_url)
+    if lottie_json:
+        st_lottie(lottie_json, height=250, key="Tentang")
+        
+   st.header("Definisi")
+    st.write("""
+         Mr adalah jumlah massa atom dari seluruh atom dalam suatu molekul. Digunakan untuk
+         menghitung massa molar senyawa dalam satuan g/mol saat dikalikan dengan 1 mol.
     """)
