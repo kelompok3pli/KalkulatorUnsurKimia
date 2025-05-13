@@ -110,7 +110,7 @@ elif menu == "ℹ️ Tentang":
 page_bg = """
 <style>
 [data-testid="stAppViewContainer"] {
-    background-color: #f0f0f0;  /* Abu-abu terang */
+    background-color: ##f93ef2;  /* Abu-abu terang */
 }
 
 [data-testid="stHeader"] {
