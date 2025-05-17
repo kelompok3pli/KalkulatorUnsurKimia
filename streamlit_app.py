@@ -68,7 +68,6 @@ def parse_formula(f):
 if menu == "🏠 Beranda":
     st.header("Selamat Datang di Kalkulator Massa Relatif")
 
-    # Animasi Lottie di beranda
     lottie_url = "https://lottie.host/b592895d-f9e1-43b1-bf8e-dea5b80b8a25/h9K58rIqKT.json"
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
@@ -80,7 +79,6 @@ if menu == "🏠 Beranda":
         Gunakan menu di samping untuk mulai menggunakan kalkulator atau mempelajari lebih lanjut.
     """)
 
-    # Gambar tabel periodik
     st.subheader("🔬 Tabel Periodik Unsur Kimia")
     st.image("https://wallpapercave.com/wp/wp2871063.jpg", caption="Tabel Periodik Unsur")
 
@@ -99,7 +97,14 @@ elif menu == "🧪 Kalkulator":
     if hitung and formula:
         parsed = parse_formula(formula)
         if parsed:
-            massa_total = sum(massa_atom[el] * n for el, n in parsed.items())
+            detail = []
+            massa_total = 0
+            for el, n in parsed.items():
+                massa = massa_atom[el]
+                subtotal = massa * n
+                massa_total += subtotal
+                detail.append(f"({n} × {massa:.3f})")
+            st.markdown(f"**Mr({formula}) = {' + '.join(detail)} = {massa_total:.2f} g/mol**")
             st.success(f"Massa relatif dari {formula} adalah {massa_total:.2f} g/mol")
         else:
             st.error("Gagal menghitung. Pastikan rumus kimia valid dan elemen dikenali.")
