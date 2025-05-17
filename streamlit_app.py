@@ -15,7 +15,7 @@ def load_lottieurl(url: str):
 st.set_page_config(page_title="Kalkulator Massa Relatif", layout="centered")
 st.title("Kalkulator Massa Relatif")
 
-# Sidebar Navigasi dengan Emoji
+# Sidebar Navigasi
 menu = st.sidebar.selectbox("🔍 Navigasi", ["🏠 Beranda", "🧪 Kalkulator", "ℹ️ Tentang"])
 
 # Data massa atom relatif
@@ -41,57 +41,80 @@ massa_atom = {
     "Fl": 289, "Lv": 293, "Ts": 294, "Og": 294
 }
 
-# Fungsi parsing formula
-def parse_formula(f):
-    f = f.replace('·', '.')  # Tangani hidrasi, misal: CuSO4·5H2O
-    parts = f.split('.')
+# Fungsi parsing rumus kimia dengan tanda kurung dan hidrasi
+def parse_formula(formula):
+    formula = formula.replace("·", ".")
+    parts = formula.split(".")
     total_elements = defaultdict(int)
 
+    def parse(part, multiplier=1):
+        stack = []
+        i = 0
+        while i < len(part):
+            if part[i] == "(":
+                stack.append(({}, multiplier))
+                i += 1
+            elif part[i] == ")":
+                i += 1
+                num = ""
+                while i < len(part) and part[i].isdigit():
+                    num += part[i]
+                    i += 1
+                group_multiplier = int(num) if num else 1
+                group_dict, prev_multiplier = stack.pop()
+                for el, count in group_dict.items():
+                    if stack:
+                        stack[-1][0][el] = stack[-1][0].get(el, 0) + count * group_multiplier
+                    else:
+                        total_elements[el] += count * group_multiplier * multiplier
+            else:
+                match = re.match(r'([A-Z][a-z]?)(\d*)', part[i:])
+                if not match:
+                    st.warning(f"Format tidak dikenali: '{part[i:]}'")
+                    return None
+                el = match.group(1)
+                count = int(match.group(2)) if match.group(2) else 1
+                i += len(match.group(0))
+                if el not in massa_atom:
+                    st.warning(f"Unsur '{el}' tidak dikenali.")
+                    return None
+                if stack:
+                    stack[-1][0][el] = stack[-1][0].get(el, 0) + count
+                else:
+                    total_elements[el] += count * multiplier
+
     for part in parts:
-        match = re.match(r'^(\d+)([A-Z].*)', part)
-        multiplier = int(match.group(1)) if match else 1
+        match = re.match(r'^(\d+)([A-Z(].*)', part)
+        mul = int(match.group(1)) if match else 1
         formula_part = match.group(2) if match else part
-
-        pattern = r'([A-Z][a-z]*)(\d*)'
-        matches = re.findall(pattern, formula_part)
-
-        for el, count in matches:
-            if el not in massa_atom:
-                st.warning(f"Unsur '{el}' tidak dikenali.")
-                return None
-            jumlah = int(count) if count else 1
-            total_elements[el] += jumlah * multiplier
+        parse(formula_part, multiplier=mul)
 
     return total_elements
 
 # Halaman Beranda
 if menu == "🏠 Beranda":
     st.header("Selamat Datang di Kalkulator Massa Relatif")
-
     lottie_url = "https://lottie.host/b592895d-f9e1-43b1-bf8e-dea5b80b8a25/h9K58rIqKT.json"
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
         st_lottie(lottie_json, height=250, key="beranda")
-
     st.write("""
         Aplikasi ini membantu Anda menghitung massa relatif dari suatu unsur atau senyawa 
         berdasarkan rumus kimia yang diberikan. 
         Gunakan menu di samping untuk mulai menggunakan kalkulator atau mempelajari lebih lanjut.
     """)
-
     st.subheader("🔬 Tabel Periodik Unsur Kimia")
     st.image("https://wallpapercave.com/wp/wp2871063.jpg", caption="Tabel Periodik Unsur")
 
 # Halaman Kalkulator
 elif menu == "🧪 Kalkulator":
-
+    st.header("Kalkulator Massa Relatif")
     lottie_url = "https://lottie.host/5ee6c7e7-3c7b-473f-b75c-df412fe210cc/kF9j77AAsG.json"
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
         st_lottie(lottie_json, height=250, key="kalkulator")
 
-    st.header("Kalkulator Massa Relatif")
-    formula = st.text_input("Masukkan rumus kimia (misalnya: H2O, CO2, CuSO4·5H2O):")
+    formula = st.text_input("Masukkan rumus kimia (misalnya: H2O, Al2(SO4)3, CuSO4·5H2O):")
     hitung = st.button("🔍 Hitung Massa Relatif")
 
     if hitung and formula:
@@ -111,25 +134,21 @@ elif menu == "🧪 Kalkulator":
 
 # Halaman Tentang
 elif menu == "ℹ️ Tentang":
-
+    st.header("Tentang Aplikasi Ini")
     lottie_url = "https://lottie.host/49626c27-b23c-475e-8505-981d510c0e61/lag9aGftQv.json"
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
         st_lottie(lottie_json, height=250, key="Tentang")
-
-    st.header("Tentang Aplikasi Ini")
     st.write("""
         Aplikasi ini dikembangkan menggunakan Streamlit dan bertujuan untuk membantu siswa dan guru
         dalam menghitung massa relatif zat kimia secara cepat dan interaktif.
     """)
-
     lottie_url = "https://lottie.host/4a584f69-29b5-40a0-a133-a15f4775ec6d/O3pamPxHLp.json"
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
         st_lottie(lottie_json, height=250, key="Tentang2")
-        
     st.header("Definisi")
     st.write("""
-         Mr adalah jumlah massa atom dari seluruh atom dalam suatu molekul. Digunakan untuk
-         menghitung massa molar senyawa dalam satuan g/mol saat dikalikan dengan 1 mol.
+        Mr adalah jumlah massa atom dari seluruh atom dalam suatu molekul. Digunakan untuk
+        menghitung massa molar senyawa dalam satuan g/mol saat dikalikan dengan 1 mol.
     """)
