@@ -61,7 +61,7 @@ massa_atom = {
     "Fl": 289, "Lv": 293, "Ts": 294, "Og": 294
 }
 
-# Fungsi parsing rumus kimia dengan tanda kurung dan hidrasi
+# Fungsi parsing rumus kimia
 def parse_formula(formula):
     formula = formula.replace("·", ".")
     parts = formula.split(".")
@@ -81,7 +81,7 @@ def parse_formula(formula):
                     num += part[i]
                     i += 1
                 group_multiplier = int(num) if num else 1
-                group_dict, prev_multiplier = stack.pop()
+                group_dict, _ = stack.pop()
                 for el, count in group_dict.items():
                     if stack:
                         stack[-1][0][el] = stack[-1][0].get(el, 0) + count * group_multiplier
@@ -111,11 +111,10 @@ def parse_formula(formula):
 
     return total_elements
 
-# Konten halaman berdasarkan menu
+# Menu konten
 if menu == "🏠 Beranda":
     st.header("Selamat Datang di Kalkulator Massa Relatif")
-    lottie_url = "https://lottie.host/b592895d-f9e1-43b1-bf8e-dea5b80b8a25/h9K58rIqKT.json"
-    lottie_json = load_lottieurl(lottie_url)
+    lottie_json = load_lottieurl("https://lottie.host/b592895d-f9e1-43b1-bf8e-dea5b80b8a25/h9K58rIqKT.json")
     if lottie_json:
         st_lottie(lottie_json, height=250, key="beranda")
     st.write("""
@@ -128,8 +127,17 @@ if menu == "🏠 Beranda":
 
 elif menu == "🧪 Kalkulator":
     st.header("Kalkulator Massa Relatif")
-    lottie_url = "https://lottie.host/5ee6c7e7-3c7b-473f-b75c-df412fe210cc/kF9j77AAsG.json"
-    lottie_json = load_lottieurl(lottie_url)
+    st.markdown("""
+    📌 **Petunjuk Penggunaan:**
+    - Masukkan rumus kimia unsur atau senyawa, misalnya:
+      - `H2O` untuk air
+      - `Al2(SO4)3` untuk aluminium sulfat
+      - `CuSO4·5H2O` untuk tembaga(II) sulfat pentahidrat
+    - Gunakan tanda kurung `()` untuk kelompok atom.
+    - Gunakan titik atau tanda `·` (tengah) untuk senyawa hidrasi.
+    """)
+
+    lottie_json = load_lottieurl("https://lottie.host/5ee6c7e7-3c7b-473f-b75c-df412fe210cc/kF9j77AAsG.json")
     if lottie_json:
         st_lottie(lottie_json, height=250, key="kalkulator")
 
@@ -153,18 +161,19 @@ elif menu == "🧪 Kalkulator":
 
 elif menu == "ℹ️ Tentang":
     st.header("Tentang Aplikasi Ini")
-    lottie_url = "https://lottie.host/49626c27-b23c-475e-8505-981d510c0e61/lag9aGftQv.json"
-    lottie_json = load_lottieurl(lottie_url)
+    lottie_json = load_lottieurl("https://lottie.host/49626c27-b23c-475e-8505-981d510c0e61/lag9aGftQv.json")
     if lottie_json:
-        st_lottie(lottie_json, height=250, key="Tentang")
+        st_lottie(lottie_json, height=250, key="tentang")
+
     st.write("""
         Aplikasi ini dikembangkan menggunakan Streamlit dan bertujuan untuk membantu siswa dan guru
         dalam menghitung massa relatif zat kimia secara cepat dan interaktif.
     """)
-    lottie_url2 = "https://lottie.host/4a584f69-29b5-40a0-a133-a15f4775ec6d/O3pamPxHLp.json"
-    lottie_json2 = load_lottieurl(lottie_url2)
+
+    lottie_json2 = load_lottieurl("https://lottie.host/4a584f69-29b5-40a0-a133-a15f4775ec6d/O3pamPxHLp.json")
     if lottie_json2:
-        st_lottie(lottie_json2, height=250, key="Tentang2")
+        st_lottie(lottie_json2, height=250, key="tentang2")
+
     st.header("Apa Itu Massa Relatif (Mr)?")
     st.write("""
     **Massa Relatif (Mr)** adalah jumlah dari massa atom relatif (Ar) semua unsur dalam rumus kimia suatu senyawa.
@@ -185,6 +194,4 @@ elif menu == "ℹ️ Tentang":
     ### Perbedaan Ar dan Mr:
     - **Ar (massa atom relatif)**: massa satu atom relatif terhadap 1/12 massa karbon-12.
     - **Mr (massa relatif molekul)**: total massa atom dalam satu molekul senyawa.
-
     """)
-
