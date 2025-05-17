@@ -15,6 +15,9 @@ def load_lottieurl(url: str):
 st.set_page_config(page_title="Kalkulator Massa Relatif", layout="centered")
 st.title("Kalkulator Massa Relatif")
 
+# Sidebar Navigasi
+menu = st.sidebar.selectbox("🔍 Navigasi", ["🏠 Beranda", "🧪 Kalkulator", "ℹ️ Tentang"])
+
 # Data massa atom relatif
 massa_atom = {
     "H": 1.008, "He": 4.0026, "Li": 6.94, "Be": 9.0122, "B": 10.81, "C": 12.01,
@@ -88,30 +91,6 @@ def parse_formula(formula):
 
     return total_elements
 
-# Inisialisasi menu aktif di session_state
-if "menu" not in st.session_state:
-    st.session_state.menu = "🏠 Beranda"
-
-# Fungsi untuk set menu saat tombol diklik
-def set_menu_beranda():
-    st.session_state.menu = "🏠 Beranda"
-def set_menu_kalkulator():
-    st.session_state.menu = "🧪 Kalkulator"
-def set_menu_tentang():
-    st.session_state.menu = "ℹ️ Tentang"
-
-# Sidebar dengan tombol navigasi terpisah
-st.sidebar.title("🔍 Navigasi")
-
-if st.sidebar.button("🏠 Beranda"):
-    set_menu_beranda()
-if st.sidebar.button("🧪 Kalkulator"):
-    set_menu_kalkulator()
-if st.sidebar.button("ℹ️ Tentang"):
-    set_menu_tentang()
-
-menu = st.session_state.menu
-
 # Halaman Beranda
 if menu == "🏠 Beranda":
     st.header("Selamat Datang di Kalkulator Massa Relatif")
@@ -164,10 +143,10 @@ elif menu == "ℹ️ Tentang":
         Aplikasi ini dikembangkan menggunakan Streamlit dan bertujuan untuk membantu siswa dan guru
         dalam menghitung massa relatif zat kimia secara cepat dan interaktif.
     """)
-    lottie_url2 = "https://lottie.host/4a584f69-29b5-40a0-a133-a15f4775ec6d/O3pamPxHLp.json"
-    lottie_json2 = load_lottieurl(lottie_url2)
-    if lottie_json2:
-        st_lottie(lottie_json2, height=250, key="Tentang2")
+    lottie_url = "https://lottie.host/4a584f69-29b5-40a0-a133-a15f4775ec6d/O3pamPxHLp.json"
+    lottie_json = load_lottieurl(lottie_url)
+    if lottie_json:
+        st_lottie(lottie_json, height=250, key="Tentang2")
     st.header("Definisi")
     st.write("""
         Mr adalah jumlah massa atom dari seluruh atom dalam suatu molekul. Digunakan untuk
