@@ -15,28 +15,32 @@ def load_lottieurl(url: str):
 st.set_page_config(page_title="Kalkulator Massa Relatif", layout="centered")
 st.title("Kalkulator Massa Relatif")
 
-# Inisialisasi menu aktif di session_state supaya navigasi tetap terjaga
+# Inisialisasi menu aktif jika belum ada
 if "menu" not in st.session_state:
     st.session_state.menu = "🏠 Beranda"
 
 # Fungsi untuk set menu saat tombol diklik
-    lottie_json = load_lottieurl("https://lottie.host/a64c7ff9-346e-4e72-b656-e337097d3bde/yHrJbTdVlE.json")
-    if lottie_json:
-       st_lottie(lottie_json, height=250, key="navigasi")
 def set_menu_beranda():
     st.session_state.menu = "🏠 Beranda"
+
 def set_menu_kalkulator():
     st.session_state.menu = "🧪 Kalkulator"
+
 def set_menu_tentang():
     st.session_state.menu = "ℹ️ Tentang"
 
-# Sidebar dengan tombol navigasi dan animasi
-if st.sidebar.button("🏠 Beranda"):
-    set_menu_beranda()
-if st.sidebar.button("🧪 Kalkulator"):
-    set_menu_kalkulator()
-if st.sidebar.button("ℹ️ Tentang"):
-    set_menu_tentang()
+# Sidebar dengan animasi dan tombol navigasi
+with st.sidebar:
+    lottie_json = load_lottieurl("https://lottie.host/a64c7ff9-346e-4e72-b656-e337097d3bde/yHrJbTdVlE.json")
+    if lottie_json:
+        st_lottie(lottie_json, height=200, key="navigasi")
+
+    if st.button("🏠 Beranda"):
+        set_menu_beranda()
+    if st.button("🧪 Kalkulator"):
+        set_menu_kalkulator()
+    if st.button("ℹ️ Tentang"):
+        set_menu_tentang()
 
 menu = st.session_state.menu
 
@@ -113,7 +117,7 @@ def parse_formula(formula):
 
     return total_elements
 
-# Menu konten
+# Menu konten utama
 if menu == "🏠 Beranda":
     st.header("Selamat Datang di Kalkulator Massa Relatif")
     lottie_json = load_lottieurl("https://lottie.host/b592895d-f9e1-43b1-bf8e-dea5b80b8a25/h9K58rIqKT.json")
@@ -197,4 +201,3 @@ elif menu == "ℹ️ Tentang":
     - **Ar (massa atom relatif)**: massa satu atom relatif terhadap 1/12 massa karbon-12.
     - **Mr (massa relatif molekul)**: total massa atom dalam satu molekul senyawa.
     """)
-
