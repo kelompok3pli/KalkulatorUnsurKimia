@@ -165,7 +165,7 @@ elif menu == "ℹ️ Tentang":
     lottie_json2 = load_lottieurl(lottie_url2)
     if lottie_json2:
         st_lottie(lottie_json2, height=250, key="Tentang2")
-    st.header("Definisi: Apa Itu Massa Relatif (Mr)?")
+    st.header("Apa Itu Massa Relatif (Mr)?")
     st.write("""
     **Massa Relatif (Mr)** adalah jumlah dari massa atom relatif (Ar) semua unsur dalam rumus kimia suatu senyawa.
 
