@@ -27,12 +27,12 @@ def set_menu_kalkulator():
 def set_menu_tentang():
     st.session_state.menu = "ℹ️ Tentang"
 
-# Sidebar dengan tombol navigas 
-    lottie_json = load_lottieurl("https://lottie.host/a64c7ff9-346e-4e72-b656-e337097d3bde/yHrJbTdVlE.json")
-    if lottie_json:
-        st_lottie(lottie_json, height=250, key="Navigasi")
-
+# Sidebar dengan tombol navigasi dan animasi
 st.sidebar.title("🔍 Navigasi")
+lottie_json = load_lottieurl("https://lottie.host/a64c7ff9-346e-4e72-b656-e337097d3bde/yHrJbTdVlE.json")
+if lottie_json:
+    st_lottie(lottie_json, height=250, key="navigasi")
+
 if st.sidebar.button("🏠 Beranda"):
     set_menu_beranda()
 if st.sidebar.button("🧪 Kalkulator"):
@@ -199,3 +199,4 @@ elif menu == "ℹ️ Tentang":
     - **Ar (massa atom relatif)**: massa satu atom relatif terhadap 1/12 massa karbon-12.
     - **Mr (massa relatif molekul)**: total massa atom dalam satu molekul senyawa.
     """)
+
