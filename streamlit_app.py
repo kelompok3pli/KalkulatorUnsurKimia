@@ -27,7 +27,11 @@ def set_menu_kalkulator():
 def set_menu_tentang():
     st.session_state.menu = "ℹ️ Tentang"
 
-# Sidebar dengan tombol navigasi
+# Sidebar dengan tombol navigas 
+    lottie_json = load_lottieurl("https://lottie.host/a64c7ff9-346e-4e72-b656-e337097d3bde/yHrJbTdVlE.json")
+    if lottie_json:
+        st_lottie(lottie_json, height=250, key="Navigasi")
+
 st.sidebar.title("🔍 Navigasi")
 if st.sidebar.button("🏠 Beranda"):
     set_menu_beranda()
