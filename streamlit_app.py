@@ -82,7 +82,7 @@ if menu == "🏠 Beranda":
 
     # Gambar tabel periodik
     st.subheader("🔬 Tabel Periodik Unsur Kimia")
-    st.image(https://wallpapercave.com/wp/wp2871063.jpg)
+    st.image("https://wallpapercave.com/wp/wp2871063.jpg", caption="Tabel Periodik Unsur", use_column_width=True)
 
 # Halaman Kalkulator
 elif menu == "🧪 Kalkulator":
