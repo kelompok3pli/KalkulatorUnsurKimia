@@ -18,7 +18,7 @@ st.title("Kalkulator Massa Relatif")
 # Sidebar Navigasi dengan Emoji
 menu = st.sidebar.selectbox("🔍 Navigasi", ["🏠 Beranda", "🧪 Kalkulator", "ℹ️ Tentang"])
 
-# Data massa atom relatif (disingkat di sini, tapi Anda sudah benar)
+# Data massa atom relatif
 massa_atom = {
     "H": 1.008, "He": 4.0026, "Li": 6.94, "Be": 9.0122, "B": 10.81, "C": 12.01,
     "N": 14.007, "O": 16.00, "F": 18.998, "Ne": 20.180, "Na": 22.990, "Mg": 24.305,
@@ -43,7 +43,7 @@ massa_atom = {
 
 # Fungsi parsing formula
 def parse_formula(f):
-    f = f.replace('·', '.')  # tangani hidrasi, misal: CuSO4·5H2O
+    f = f.replace('·', '.')  # Tangani hidrasi, misal: CuSO4·5H2O
     parts = f.split('.')
     total_elements = defaultdict(int)
 
@@ -89,8 +89,9 @@ elif menu == "🧪 Kalkulator":
 
     st.header("Kalkulator Massa Relatif")
     formula = st.text_input("Masukkan rumus kimia (misalnya: H2O, CO2, CuSO4·5H2O):")
+    hitung = st.button("🔍 Hitung Massa Relatif")
 
-    if formula:
+    if hitung and formula:
         parsed = parse_formula(formula)
         if parsed:
             massa_total = sum(massa_atom[el] * n for el, n in parsed.items())
