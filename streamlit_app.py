@@ -173,7 +173,8 @@ elif menu == "ℹ️ Tentang":
 
     st.write("""
         Aplikasi ini dikembangkan menggunakan Streamlit dan bertujuan untuk membantu siswa dan guru
-        dalam menghitung massa relatif zat kimia secara cepat dan interaktif.
+        dalam menghitung massa relatif zat kimia secara cepat dan interaktif.Selain menghitung masa 
+        relatif zat kimia, aplikasi ini juga dapat memberikan informasi tentang masa atom relatif (Ar).
     """)
 
     lottie_json2 = load_lottieurl("https://lottie.host/4a584f69-29b5-40a0-a133-a15f4775ec6d/O3pamPxHLp.json")
