@@ -15,8 +15,28 @@ def load_lottieurl(url: str):
 st.set_page_config(page_title="Kalkulator Massa Relatif", layout="centered")
 st.title("Kalkulator Massa Relatif")
 
-# Sidebar Navigasi
-menu = st.sidebar.selectbox("🔍 Navigasi", ["🏠 Beranda", "🧪 Kalkulator", "ℹ️ Tentang"])
+# Inisialisasi menu aktif di session_state supaya navigasi tetap terjaga
+if "menu" not in st.session_state:
+    st.session_state.menu = "🏠 Beranda"
+
+# Fungsi untuk set menu saat tombol diklik
+def set_menu_beranda():
+    st.session_state.menu = "🏠 Beranda"
+def set_menu_kalkulator():
+    st.session_state.menu = "🧪 Kalkulator"
+def set_menu_tentang():
+    st.session_state.menu = "ℹ️ Tentang"
+
+# Sidebar dengan tombol navigasi
+st.sidebar.title("🔍 Navigasi")
+if st.sidebar.button("🏠 Beranda"):
+    set_menu_beranda()
+if st.sidebar.button("🧪 Kalkulator"):
+    set_menu_kalkulator()
+if st.sidebar.button("ℹ️ Tentang"):
+    set_menu_tentang()
+
+menu = st.session_state.menu
 
 # Data massa atom relatif
 massa_atom = {
@@ -91,7 +111,7 @@ def parse_formula(formula):
 
     return total_elements
 
-# Halaman Beranda
+# Konten halaman berdasarkan menu
 if menu == "🏠 Beranda":
     st.header("Selamat Datang di Kalkulator Massa Relatif")
     lottie_url = "https://lottie.host/b592895d-f9e1-43b1-bf8e-dea5b80b8a25/h9K58rIqKT.json"
@@ -106,7 +126,6 @@ if menu == "🏠 Beranda":
     st.subheader("🔬 Tabel Periodik Unsur Kimia")
     st.image("https://wallpapercave.com/wp/wp2871063.jpg", caption="Tabel Periodik Unsur")
 
-# Halaman Kalkulator
 elif menu == "🧪 Kalkulator":
     st.header("Kalkulator Massa Relatif")
     lottie_url = "https://lottie.host/5ee6c7e7-3c7b-473f-b75c-df412fe210cc/kF9j77AAsG.json"
@@ -132,7 +151,6 @@ elif menu == "🧪 Kalkulator":
         else:
             st.error("Gagal menghitung. Pastikan rumus kimia valid dan elemen dikenali.")
 
-# Halaman Tentang
 elif menu == "ℹ️ Tentang":
     st.header("Tentang Aplikasi Ini")
     lottie_url = "https://lottie.host/49626c27-b23c-475e-8505-981d510c0e61/lag9aGftQv.json"
@@ -143,10 +161,10 @@ elif menu == "ℹ️ Tentang":
         Aplikasi ini dikembangkan menggunakan Streamlit dan bertujuan untuk membantu siswa dan guru
         dalam menghitung massa relatif zat kimia secara cepat dan interaktif.
     """)
-    lottie_url = "https://lottie.host/4a584f69-29b5-40a0-a133-a15f4775ec6d/O3pamPxHLp.json"
-    lottie_json = load_lottieurl(lottie_url)
-    if lottie_json:
-        st_lottie(lottie_json, height=250, key="Tentang2")
+    lottie_url2 = "https://lottie.host/4a584f69-29b5-40a0-a133-a15f4775ec6d/O3pamPxHLp.json"
+    lottie_json2 = load_lottieurl(lottie_url2)
+    if lottie_json2:
+        st_lottie(lottie_json2, height=250, key="Tentang2")
     st.header("Definisi")
     st.write("""
         Mr adalah jumlah massa atom dari seluruh atom dalam suatu molekul. Digunakan untuk
