@@ -31,7 +31,7 @@ def set_menu_tentang():
 
 # Sidebar dengan animasi dan tombol navigasi
 with st.sidebar:
-    lottie_json = load_lottieurl("https://lottie.host/804c44d9-0533-4b66-bc26-5bc465a7e64e/bVxGX2SyeI.json")
+    lottie_json = load_lottieurl("https://lottie.host/a64c7ff9-346e-4e72-b656-e337097d3bde/yHrJbTdVlE.json")
     if lottie_json:
         st_lottie(lottie_json, height=200, key="navigasi")
 
