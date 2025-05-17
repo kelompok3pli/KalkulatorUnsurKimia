@@ -165,8 +165,26 @@ elif menu == "ℹ️ Tentang":
     lottie_json2 = load_lottieurl(lottie_url2)
     if lottie_json2:
         st_lottie(lottie_json2, height=250, key="Tentang2")
-    st.header("Definisi")
-    st.write("""
-        Mr adalah jumlah massa atom dari seluruh atom dalam suatu molekul. Digunakan untuk
-        menghitung massa molar senyawa dalam satuan g/mol saat dikalikan dengan 1 mol.
-    """)
+   st.header("Definisi: Apa Itu Massa Relatif (Mr)?")
+   st.write("""
+**Massa Relatif (Mr)** adalah jumlah dari massa atom relatif (Ar) semua unsur dalam rumus kimia suatu senyawa.
+
+- Mr tidak memiliki satuan karena merupakan perbandingan massa.
+- Mr dihitung dengan menjumlahkan massa relatif tiap atom dikalikan dengan jumlah atomnya dalam satu molekul.
+
+### Contoh Perhitungan:
+Untuk air (**H₂O**):
+- Ar(H) = 1.008 → 2 × 1.008 = 2.016
+- Ar(O) = 16.00 → 1 × 16.00 = 16.00
+- **Mr(H₂O) = 2.016 + 16.00 = 18.016**
+
+### Pentingnya Mr:
+- Membantu menghitung **massa molar** dalam gram per mol (g/mol).
+- Berguna dalam perhitungan stoikiometri, hukum dasar kimia, dan reaksi kimia.
+
+### Perbedaan Ar dan Mr:
+- **Ar (massa atom relatif)**: massa satu atom relatif terhadap 1/12 massa karbon-12.
+- **Mr (massa relatif molekul)**: total massa atom dalam satu molekul senyawa.
+
+""")
+
