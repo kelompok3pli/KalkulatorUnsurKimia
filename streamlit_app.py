@@ -68,6 +68,7 @@ def parse_formula(f):
 if menu == "🏠 Beranda":
     st.header("Selamat Datang di Kalkulator Massa Relatif")
 
+    # Animasi Lottie di beranda
     lottie_url = "https://lottie.host/b592895d-f9e1-43b1-bf8e-dea5b80b8a25/h9K58rIqKT.json"
     lottie_json = load_lottieurl(lottie_url)
     if lottie_json:
@@ -78,6 +79,14 @@ if menu == "🏠 Beranda":
         berdasarkan rumus kimia yang diberikan. 
         Gunakan menu di samping untuk mulai menggunakan kalkulator atau mempelajari lebih lanjut.
     """)
+
+    # Gambar tabel periodik
+    st.subheader("🔬 Tabel Periodik Unsur Kimia")
+    st.image(
+        "https://upload.wikimedia.org/wikipedia/commons/0/01/Periodic_table_large.png",
+        caption="Sumber: Wikipedia",
+        use_column_width=True
+    )
 
 # Halaman Kalkulator
 elif menu == "🧪 Kalkulator":
