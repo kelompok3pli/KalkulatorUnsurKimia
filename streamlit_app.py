@@ -20,6 +20,9 @@ if "menu" not in st.session_state:
     st.session_state.menu = "🏠 Beranda"
 
 # Fungsi untuk set menu saat tombol diklik
+lottie_json = load_lottieurl("https://lottie.host/a64c7ff9-346e-4e72-b656-e337097d3bde/yHrJbTdVlE.json")
+if lottie_json:
+    st_lottie(lottie_json, height=250, key="navigasi")
 def set_menu_beranda():
     st.session_state.menu = "🏠 Beranda"
 def set_menu_kalkulator():
@@ -28,11 +31,6 @@ def set_menu_tentang():
     st.session_state.menu = "ℹ️ Tentang"
 
 # Sidebar dengan tombol navigasi dan animasi
-st.sidebar.title("🔍 Navigasi")
-lottie_json = load_lottieurl("https://lottie.host/a64c7ff9-346e-4e72-b656-e337097d3bde/yHrJbTdVlE.json")
-if lottie_json:
-    st_lottie(lottie_json, height=250, key="navigasi")
-
 if st.sidebar.button("🏠 Beranda"):
     set_menu_beranda()
 if st.sidebar.button("🧪 Kalkulator"):
